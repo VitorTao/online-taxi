@@ -4,6 +4,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -19,6 +20,15 @@ public class RedisConfig {
 
     @Autowired
     RedisSentinelProperties properties;
+
+    @Value("${spring.redis.database}")
+    private int database;
+    @Value("${spring.redis.host}")
+    private String host;
+    @Value("${spring.redis.port}")
+    private String port;
+    @Value("${spring.redis.password}")
+    private String password;
     //以下为redisson锁，哨兵
 //    @Bean(name = "redisson")
 //    @Order(1)
@@ -34,24 +44,24 @@ public class RedisConfig {
     //以上为redisson锁
 
     //以下为红锁
-    @Bean
-    public RedissonClient redissonRed1(){
-        Config config = new Config();
-        config.useSingleServer().setAddress("127.0.0.1:6379").setDatabase(0);
-        return Redisson.create(config);
-    }
-    @Bean
-    public RedissonClient redissonRed2(){
-        Config config = new Config();
-        config.useSingleServer().setAddress("127.0.0.1:6380").setDatabase(0);
-        return Redisson.create(config);
-    }
-    @Bean
-    public RedissonClient redissonRed3(){
-        Config config = new Config();
-        config.useSingleServer().setAddress("127.0.0.1:6381").setDatabase(0);
-        return Redisson.create(config);
-    }
+//    @Bean
+//    public RedissonClient redissonRed1(){
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("10.202.80.117:7974").setDatabase(1).setPassword("cbhtzey59OM");
+//        return Redisson.create(config);
+//    }
+//    @Bean
+//    public RedissonClient redissonRed2(){
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("62.234.212.139:6379").setDatabase(1).setPassword("KwaQ6DNJZZJRv43r");
+//        return Redisson.create(config);
+//    }
+//    @Bean
+//    public RedissonClient redissonRed3(){
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("127.0.0.1:6379").setDatabase(0);
+//        return Redisson.create(config);
+//    }
     //以上为红锁
     
     
@@ -73,8 +83,7 @@ public class RedisConfig {
     @Bean
     public RedissonClient redissonClient() {
     	Config config = new Config();
-    	config.useSingleServer().setAddress("127.0.0.1:6379").setDatabase(0);
-    	
+    	config.useSingleServer().setAddress(this.host+":"+this.port).setDatabase(this.database).setPassword(this.password);
     	return Redisson.create(config);
     }
 }

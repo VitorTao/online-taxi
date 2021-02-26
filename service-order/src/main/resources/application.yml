@@ -6,12 +6,25 @@
 spring: 
   application: 
     name: service-order
+
+#  redis:
+#    sentinel:
+#      master: master7974
+#      nodes: 10.202.80.117:17974, 10.202.80.118:17974
+#    database: 0
+#    password: cbhtzey59OM
+#    timeout: 5000
+
   redis:
-    database: 0
-    host: 127.0.0.1
+    database: 1
+    host: 62.234.212.139
     port: 6379
     timeout: 2000
-    password:
+    password: KwaQ6DNJZZJRv43r
+#          host: 10.202.80.117
+#          port: 17972
+#          timeout: 2000
+#          password: ark92XWrpv
     #数据库连接配置
   datasource: 
          #配置当前使用的数据源的操作类型
@@ -19,11 +32,11 @@ spring:
          #配置MySQL的驱动程序类
     driver-class-name: com.mysql.cj.jdbc.Driver                             
          #数据库连接地址
-    url: jdbc:mysql://localhost:3306/online-taxi?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-         #数据库连接用户名
-    username: root                                                        
-         #数据库连接密码
-    password: root                                                        
+    url: jdbc:mysql://rm-2ze9h3or6bney0u8b.mysql.rds.aliyuncs.com:3306/test?useUnicode=true&autoReconnect=true&autoReconnectForPools=true&characterEncoding=UTF-8
+      #数据库连接用户名
+    username: sl_test
+      #数据库连接密码
+    password: pDrUg5c6oJBJuLak
          #进行数据库连接池的配置
     dbcp2:          
              #初始化提供的连接数                                                      
@@ -39,12 +52,12 @@ spring:
       test-on-borrow: false
       test-on-return: false
 #自定义哨兵
-sentinel:
-  address:
-    - 127.0.0.1:26379
-    - 127.0.0.1:26479
-    - 127.0.0.1:26579
-  masterName: mymaster
+#sentinel:
+#  address:
+#    - 127.0.0.1:26379
+#    - 127.0.0.1:26479
+#    - 127.0.0.1:26579
+#  masterName: mymaster
 
 #注册中心
 eureka: 
@@ -53,7 +66,7 @@ eureka:
     enabled: true
         #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
   instance: 
     hostname: localhost
 
@@ -67,7 +80,10 @@ mybatis:
   mapper-locations:             
   - classpath:mybatis/mapper/*.xml      
 
-  
+#logging:
+#  level:
+#    root: TRACE
+#    org.springframework: debug
 ---
 spring:
   profiles: 8004

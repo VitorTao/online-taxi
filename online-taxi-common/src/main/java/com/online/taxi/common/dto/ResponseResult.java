@@ -64,4 +64,10 @@ public class ResponseResult<T> implements Serializable {
     public static ResponseResult fail(int code, String message, String data) {
         return new ResponseResult().setCode(code).setMessage(message).setData(data);
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+
 }

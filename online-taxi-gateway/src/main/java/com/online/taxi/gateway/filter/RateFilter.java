@@ -20,7 +20,7 @@ public class RateFilter extends ZuulFilter {
 	/**
 	 * 每秒1个令牌，实际通过压测获得
 	 */
-	private static final RateLimiter RATE_LIMITER  = RateLimiter.create(1);
+//	private static final RateLimiter RATE_LIMITER  = RateLimiter.create(10);
 	
 	@Override
 	public boolean shouldFilter() {
@@ -35,10 +35,10 @@ public class RateFilter extends ZuulFilter {
 		HttpServletRequest request = requestContext.getRequest();
 				
 		//拿不到令牌马上返回。
-		if(!RATE_LIMITER.tryAcquire()) {
-			requestContext.setSendZuulResponse(false);
-			requestContext.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
-		}
+//		if(!RATE_LIMITER.tryAcquire()) {
+//			requestContext.setSendZuulResponse(false);
+//			requestContext.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
+//		}
 		return null;
 	}
 

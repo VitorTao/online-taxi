@@ -6,12 +6,12 @@ spring:
   application: 
     name: config-client
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-
-#先注释掉 配置中心
+    host: tcpmq.test.xdf.cn
+    port: 5673
+    username: gwhd
+    password: 7nkCqybVK
+    virtual-host: its_s_plus
+  #先注释掉 配置中心
   cloud: 
     config:
       discovery:
@@ -25,7 +25,7 @@ eureka:
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
   instance: 
     #服务刷新时间配置，每隔这个时间会主动心跳一次
     lease-renewal-interval-in-seconds: 1      

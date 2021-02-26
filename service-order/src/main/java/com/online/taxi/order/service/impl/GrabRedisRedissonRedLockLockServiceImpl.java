@@ -24,7 +24,7 @@ public class GrabRedisRedissonRedLockLockServiceImpl implements GrabService {
     private RedissonClient redissonRed2;
     @Autowired
     private RedissonClient redissonRed3;
-    
+
     @Autowired
 	OrderService orderService;
 
@@ -40,24 +40,27 @@ public class GrabRedisRedissonRedLockLockServiceImpl implements GrabService {
 //        RLock rLock = redissonRed1.getLock(lockKey);
 
         //红锁
+        RLock rLock3 = redissonRed3.getLock(lockKey);
         RLock rLock1 = redissonRed1.getLock(lockKey);
         RLock rLock2 = redissonRed2.getLock(lockKey);
-        RLock rLock3 = redissonRed2.getLock(lockKey);
-        RedissonRedLock rLock = new RedissonRedLock(rLock1,rLock2,rLock3);
+        RedissonRedLock rLock = new RedissonRedLock(rLock3,rLock1,rLock2);
 
         rLock.lock();
 
         try {
+            Thread.sleep(30000);
     		// 此代码默认 设置key 超时时间30秒，过10秒，再延时
 			System.out.println("司机:"+driverId+" 执行抢单逻辑");
-			
+
             boolean b = orderService.grab(orderId, driverId);
             if(b) {
             	System.out.println("司机:"+driverId+" 抢单成功");
             }else {
             	System.out.println("司机:"+driverId+" 抢单失败");
             }
-            
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
         	rLock.unlock();
         }

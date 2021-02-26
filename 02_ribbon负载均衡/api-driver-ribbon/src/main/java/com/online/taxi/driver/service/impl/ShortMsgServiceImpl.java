@@ -35,7 +35,9 @@ public class ShortMsgServiceImpl implements ShortMsgService {
 		
 		System.out.println("手机号和验证码："+phoneNumber+","+code);
 		String http = "http://";
-		String serviceName = "SERVICE-SMS";
+//		String serviceName = "SERVICE-SMS";
+		String serviceName = "service-sms";
+//		String serviceName = "localhost:8002";
 		String uri = "/send/alisms-template";
 		
 		String url = http + serviceName + uri;

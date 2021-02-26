@@ -2,18 +2,24 @@ spring:
   application: 
         #应用名称
     name: service-sms
-    #数据库连接配置
+    admin:
+      username: 111
+      password: 111
+      enabled: true
+#  profiles:
+#    active: 8002
+  #数据库连接配置
   datasource: 
          #配置当前使用的数据源的操作类型
     type: com.alibaba.druid.pool.DruidDataSource                          
          #配置MySQL的驱动程序类
     driver-class-name: com.mysql.cj.jdbc.Driver                             
          #数据库连接地址
-    url: jdbc:mysql://localhost:3306/online-taxi?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://rm-2ze9h3or6bney0u8b.mysql.rds.aliyuncs.com:3306/fp_db_q?useUnicode=true&autoReconnect=true&autoReconnectForPools=true&characterEncoding=UTF-8
          #数据库连接用户名
-    username: root                                                        
+    username: sl_test
          #数据库连接密码
-    password: root                                                        
+    password: pDrUg5c6oJBJuLak
          #进行数据库连接池的配置
     dbcp2:          
              #初始化提供的连接数                                                      
@@ -54,16 +60,12 @@ eureka:
 #    enable-self-preservation: false       #关闭保护机制
 #    eviction-interval-timer-in-ms: 2000   #剔除失效服务间隔,单位毫秒
   client:
-    healthcheck:      enabled: true
+    healthcheck:
+      enabled: true
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
-  instance: 
-    virtual-host-name: service-sms
-    #服务刷新时间配置，每隔这个时间会主动心跳一次
-    lease-renewal-interval-in-seconds: 1      
-    #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
-    lease-expiration-duration-in-seconds: 1   
+      defaultZone: http://root:root@localhost:7900/eureka/
+
     
     metadata-map:
       user.name: root
@@ -81,19 +83,37 @@ management:
 
 logging:
   level:
-    root: info
-    org.springframework.web.servlet: debug      
+#    root: debug
+    org.springframework: debug
 ---
-spring:  profiles: 8002
+spring:
+  profiles: 8002
 server: 
     #服务端口
   port: 8002
 
+eureka:
+  instance:
+    virtual-host-name: service-sms
+    #服务刷新时间配置，每隔这个时间会主动心跳一次
+    lease-renewal-interval-in-seconds: 1
+    #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+    lease-expiration-duration-in-seconds: 1
+    instance-id: sms8002
 ---
 spring:
   profiles: 8003
 server: 
     #服务端口
   port: 8003
+
+eureka:
+  instance:
+    virtual-host-name: service-sms
+    instance-id: sms8003
+    #服务刷新时间配置，每隔这个时间会主动心跳一次
+    lease-renewal-interval-in-seconds: 1
+    #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+    lease-expiration-duration-in-seconds: 1
 
   

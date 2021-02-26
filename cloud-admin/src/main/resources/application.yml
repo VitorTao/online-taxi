@@ -22,14 +22,14 @@ spring:
 #收件邮箱
 spring.boot.admin.notify.mail.to: 2634982208@qq.com   
 # 发件邮箱
-spring.boot.admin.notify.mail.from: 1399979641@qq.com   
+spring.boot.admin.notify.mail.from: 1399979641@qq.com
       
 #注册中心
 eureka: 
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
   instance: 
     hostname: localhost
     lease-renewal-interval-in-seconds: 1

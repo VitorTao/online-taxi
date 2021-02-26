@@ -25,8 +25,15 @@ public class RestTemplateRequestServiceImpl implements RestTemplateRequestServic
 	@Override
 //	@HystrixCommand(fallbackMethod = "sendFail")
 	@HystrixCommand(fallbackMethod = "sendFail",ignoreExceptions = {HystrixIgnoreException.class},
-	commandProperties = {
-			@HystrixProperty(name = "fallback.enabled",value = "true")
+					threadPoolKey="mysmsqueue",
+					threadPoolProperties = {
+									@HystrixProperty(name="coreSize",value="2"),
+									@HystrixProperty(name="maxQueueSize",value="15"),
+									@HystrixProperty(name="queueSizeRejectionThreshold",value="20")
+					},
+			commandProperties = {
+			@HystrixProperty(name = "fallback.enabled",value = "true"),
+					@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000")
 	})
 	public ResponseResult smsSend(SmsSendRequest smsSendRequest) {
 		
@@ -35,7 +42,7 @@ public class RestTemplateRequestServiceImpl implements RestTemplateRequestServic
 //			int i = 1/0;
 //		} catch (Exception e) {
 //			// TODO: handle exception
-//			throw new BusinessException("熔断忽略的异常，继承HystrixBadRequestException");
+////			throw new BusinessException("熔断忽略的异常，继承HystrixBadRequestException");
 //			throw new HystrixIgnoreException("熔断忽略的异常，忽略属性设置");
 //		}
 		

@@ -4,7 +4,13 @@ server:
 spring:
   application:
     name: online-taxi-gateway
-    
+
+  redis:
+    database: 1
+    host: 62.234.212.139
+    port: 6379
+    timeout: 2000
+    password: KwaQ6DNJZZJRv43r
   #zipkin
   zipkin:
     base-url: http://localhost:9411/
@@ -17,7 +23,7 @@ eureka:
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7901:7901/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
   instance: 
     hostname: localhost
     instance-id: online-taxi-gateway 
@@ -26,17 +32,57 @@ eureka:
 #网关
 #/**匹配后面所有路径
 zuul:
+  prefix: /gate-way
   routes:
-    service-sms: /gate-way/sms/**
+    custom-zuul-name:
+      path: /pass/**
+      service-id: api-passenger
+#    service-sms: /gate-way/sms/**
+#    api-driver: /gate-way/driver/**
+#    api-passenger: /gate-way/pass/**
     #忽略
 #  ignored-services:
-#  - api-passenger
-  
+#  - api-driver
+  #限流
+#  ratelimit:
+#    key-prefix: wsk
+#    enabled: true
+#    repository: REDIS
+#    behind-proxy: true
+#      # 配置路由的策略
+#    default-policy-list: #optional - will apply unless specific policy exists
+#      - limit: 1 #optional - request number limit per refresh interval window
+#        quota: 1 #optional - request time limit per refresh interval window (in seconds)
+#        refresh-interval: 3
+#    policy-list:
+#      custom-zuul-name:
+#        - limit: 10 #optional - request number limit per refresh interval window
+#          quota: 1000 #optional - request time limit per refresh interval window (in seconds)
+#          refresh-interval: 60 #default value (in seconds)
+#          type: ORIGIN
+
+
+
+
 #  ignored-patterns:
 #  - /*-passenger/**
 
   #以下配置为空表示：所有请求头都透传到后面微服务。
   sensitive-headers:
+
+
 logging:
   level:
     org.springframework: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    routes: true
+

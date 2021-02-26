@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author yueyi2019
  */
 @Component
-@ConfigurationProperties(prefix = "sentinel")
+@ConfigurationProperties(prefix = "redis.sentinel")
 @Order(0)
 @Data
 public class RedisSentinelProperties {

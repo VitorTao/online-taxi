@@ -58,7 +58,7 @@ public class ShortMsgServiceImpl implements ShortMsgService {
 		data.add(dto);
 		
 		smsSendRequest.setData(data);
-		
+		System.out.println("远程调用前"+phoneNumber);
 //		 正常 ribbon调用
 		ResponseResult result =  restTemplateRequestService.smsSend(smsSendRequest);
 		

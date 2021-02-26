@@ -13,6 +13,8 @@ public class SmsTemplateDto {
 
 	private Map<String, Object> templateMap;
 
+
+
 	@Override
 	public String toString() {
 		return "SmsTemplateDto [id=" + id + ", templateMap=" + templateMap + "]";

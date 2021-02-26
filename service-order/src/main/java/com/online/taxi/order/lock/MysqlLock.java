@@ -5,6 +5,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import com.online.taxi.order.dao.OrderLockMapper;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
+@Scope("prototype")
 @Service
 @Data
 public class MysqlLock implements Lock {
@@ -50,6 +51,7 @@ public class MysqlLock implements Lock {
 			System.out.println("加锁对象："+orderLockThreadLocal.get());
 			return true;
 		}catch (Exception e) {
+//			e.printStackTrace();
 			return false;
 		}
 		

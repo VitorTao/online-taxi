@@ -24,17 +24,20 @@ public class AuthFilter extends ZuulFilter {
 	public boolean shouldFilter() {
 		//获取上下文
 		RequestContext requestContext = RequestContext.getCurrentContext();
-		HttpServletRequest request = requestContext.getRequest();
-		
-		String uri = request.getRequestURI();
-		System.out.println("来源uri："+uri);
-		//只有此接口/api-passenger/api-passenger-gateway-test/hello才被拦截
-		String checkUri = "/api-passenger/api-passenger-gateway-test/hello";
-		if(checkUri.equalsIgnoreCase(uri)) {
-			return true;
-		}
-		
-		return false;
+//		HttpServletRequest request = requestContext.getRequest();
+//
+//		String uri = request.getRequestURI();
+//		System.out.println("来源uri："+uri);
+//		//只有此接口/api-passenger/api-passenger-gateway-test/hello才被拦截
+//		String checkUri = "/api-passenger/api-passenger-gateway-test/hello";
+//		if(checkUri.equalsIgnoreCase(uri)) {
+//			return true;
+//		}
+//		if(!requestContext.sendZuulResponse()){
+//		  return false;
+//    }
+		System.out.println(requestContext.sendZuulResponse());
+		return requestContext.sendZuulResponse();
 	}
 
 	@Override

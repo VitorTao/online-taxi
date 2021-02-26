@@ -14,6 +14,15 @@
     from tbl_order
     where orderId = #{orderid,jdbcType=INTEGER}
   </select>
+  <select id="selectByIds" resultMap="BaseResultMap"  parameterType="list">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_order
+    where orderId in
+        <foreach collection="list" item="id" open="(" close=")"  separator=",">
+          #{id}
+        </foreach>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_order
     where orderId = #{orderid,jdbcType=INTEGER}

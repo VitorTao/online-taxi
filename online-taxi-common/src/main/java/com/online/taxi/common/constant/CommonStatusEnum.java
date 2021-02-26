@@ -55,4 +55,11 @@ public enum CommonStatusEnum {
         this.value = value;
     }
 
+  public int getCode() {
+    return code;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

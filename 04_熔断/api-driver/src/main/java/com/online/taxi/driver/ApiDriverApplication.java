@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
@@ -29,6 +30,7 @@ import com.online.taxi.driver.ribbonconfig.RibbonConfiguration;
 // 下面是让所有client都实现随机策略
 //@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
 @RibbonClient(name = "service-sms",configuration = RibbonConfiguration.class)
+//@EnableEurekaClient
 public class ApiDriverApplication {
 
 	public static void main(String[] args) {

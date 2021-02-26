@@ -28,8 +28,13 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 public class GatewayTestController {
 	
 	@GetMapping("/hello")
-	public String helloWorld() {
+	public String helloWorld(HttpServletRequest request) {
 		log.info("api-passenger-hello");
+		String token = request.getHeader("token");
+		String cookie = request.getHeader("Cookie");
+
+		System.out.println("乘客api：token："+token);
+		System.out.println("乘客api：cookie："+cookie);
 		return "api-passenger-hello";
 	}
 	

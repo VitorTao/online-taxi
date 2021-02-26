@@ -56,6 +56,8 @@ public class AuthFilter extends ZuulFilter {
 		String defaultToken = "1234";
 		if(StringUtils.isNotBlank(token) && defaultToken.equals(token)) {
 			System.out.println("auth filter:校验通过");
+			requestContext.addZuulRequestHeader("Authorization",token);
+			requestContext.addZuulRequestHeader("token",request.getHeader("token"));
 		} else {
 			// 不往下的过滤器继续了
 			requestContext.setSendZuulResponse(false);

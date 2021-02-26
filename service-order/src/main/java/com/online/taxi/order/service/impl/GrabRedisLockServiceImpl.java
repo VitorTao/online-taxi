@@ -74,7 +74,7 @@ public class GrabRedisLockServiceImpl implements GrabService {
 //        	stringRedisTemplate.delete(lock.intern());
         	
         	/**
-        	 * 下面代码避免释放别人的锁
+        	 * 下面代码避免释放别人的锁  但不是原子的 有可能在执行if的时候  锁是A的 进来后 锁过期 A抢到了锁 此时 把B的锁给删了
         	 */
         	if((driverId+"").equals(stringRedisTemplate.opsForValue().get(lock.intern()))) {
         		stringRedisTemplate.delete(lock.intern());

@@ -1,9 +1,11 @@
 #应用名称及验证账号
-spring: 
-  application: 
+spring:
+  application:
     name: api-driver
     admin:
       enabled: true
+      username: 111
+      password: 111
   redis:
     database: 0
     host: 127.0.0.1
@@ -22,7 +24,8 @@ eureka:
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
+    enabled: true
   instance: 
     hostname: localhost
       

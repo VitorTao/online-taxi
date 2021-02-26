@@ -9,17 +9,26 @@ spring:
       name: root
       password: root
 
-logging:  level:    root: info
-    ---
-spring:  profiles: 7901
+logging:
+  level:
+    root: info
+    
+---
+spring:
+  profiles: 7901
 server: 
   port: 7901
-eureka:  instance:
+eureka:
+  instance:
     hostname: localhost  
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@localhost:7902/eureka/,http://root:root@localhost:7903/eureka/---    
+      defaultZone: http://root:root@localhost:7902/eureka/,http://root:root@localhost:7903/eureka/
+    # 下面俩都是true  才能实现集群互为备份效果 实现高可用 互相注册给其他eureka
+    fetch-registry: true
+    register-with-eureka: true
+---    
 spring:
   profiles: 7902
 server: 
@@ -31,7 +40,10 @@ eureka:
        #设置服务注册中心的URL
     service-url:                      
       defaultZone: http://root:root@localhost:7903/eureka/,http://root:root@localhost:7901/eureka/
----    
+    # 下面俩都是true  才能实现集群互为备份效果 实现高可用 互相注册给其他eureka
+    fetch-registry: true
+    register-with-eureka: true
+---
 spring:
   profiles: 7903
 server: 
@@ -43,3 +55,6 @@ eureka:
        #设置服务注册中心的URL
     service-url:                      
       defaultZone: http://root:root@localhost:7901/eureka/,http://root:root@localhost:7902/eureka/
+    # 下面俩都是true  才能实现集群互为备份效果 实现高可用 互相注册给其他eureka
+    fetch-registry: true
+    register-with-eureka: true

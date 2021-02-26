@@ -13,22 +13,23 @@ spring:
         
         git:
         #https://github.com/yueyi2019/online-taxi-config-profile.git
-          uri: https://github.com/yueyi2019/online-taxi-config-profile
-          username: 
-          password: 
+          uri: https://github.com/VitorTao/online-taxi-config-profile
+          username: 869035098@qq.com
+          password: githubmm123
                       #默认是秒，因为git慢
           timeout: 15
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest    
+    host: tcpmq.test.xdf.cn
+    port: 5673
+    username: gwhd
+    password: 7nkCqybVK
+    virtual-host: its_s_plus
 #注册中心
 eureka: 
   client:
     #设置服务注册中心的URL
     service-url:                      
-      defaultZone: http://root:root@eureka-7900:7900/eureka/
+      defaultZone: http://root:root@localhost:7900/eureka/
   instance: 
     hostname: localhost
     instance-id: config-server

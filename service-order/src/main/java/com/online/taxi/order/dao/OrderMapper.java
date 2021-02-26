@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.online.taxi.common.entity.Order;
 
+import java.util.List;
+
 @Mapper
 public interface OrderMapper {
     int deleteByPrimaryKey(Integer orderid);
@@ -17,4 +19,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Order> selectByIds(List<Integer> ids);
 }
